@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheque</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="cheque-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="close-cheque">&times;</span>
+            <h2>Cheque</h2>
+            <form id="cheque-form">
+                <label for="cheque-amount">Amount:</label>
+                <input type="number" id="cheque-amount" required>
+                <button type="submit">Issue Cheque</button>
+            </form>
+        </div>
+    </div>
+    <script src="scripts/cheque.js"></script>
+</body>
+</html>
