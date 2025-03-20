@@ -1,3 +1,4 @@
 Tkinter
 sqlite3
 Pillow
+flask-cors

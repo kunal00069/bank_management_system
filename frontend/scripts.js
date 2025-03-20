@@ -1,11 +1,11 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const createAccountButton = document.getElementById('create-account-button');
     const loginButton = document.getElementById('login-button');
     const createAccountSection = document.getElementById('create-account');
     const loginSection = document.getElementById('login');
     const userDetails = document.getElementById('user-details');
     const createAccountForm = document.getElementById('create-account-form');
-    const loginForm = document.getElementById('login-form');
+    // const loginForm = document.getElementById('login-form');
     const transactionLogContainer = document.getElementById('transaction-log-container');
     const logo = document.querySelector('.logo');
 
@@ -37,25 +37,25 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById(modalId).style.display = 'none';
     }
 
-    createAccountButton.addEventListener('click', function() {
+    createAccountButton.addEventListener('click', function () {
         createAccountSection.style.display = 'block';
         loginSection.style.display = 'none';
         userDetails.style.display = 'none';
     });
 
-    loginButton.addEventListener('click', function() {
+    loginButton.addEventListener('click', function () {
         loginSection.style.display = 'block';
         createAccountSection.style.display = 'none';
         userDetails.style.display = 'none';
     });
 
-    logo.addEventListener('click', function() {
+    logo.addEventListener('click', function () {
         createAccountSection.style.display = 'none';
         loginSection.style.display = 'none';
         userDetails.style.display = 'none';
     });
 
-    createAccountForm.addEventListener('submit', function(event) {
+    createAccountForm.addEventListener('submit', function (event) {
         event.preventDefault();
         const name = document.getElementById('name').value;
         const age = document.getElementById('age').value;
@@ -68,35 +68,14 @@ document.addEventListener('DOMContentLoaded', function() {
         createAccountForm.reset();
     });
 
-    loginForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const loginName = document.getElementById('login-name').value;
-        const loginPin = document.getElementById('login-pin').value;
-
-        const userData = JSON.parse(localStorage.getItem(loginPin));
-
-        if (userData && userData.name === loginName) {
-            document.getElementById('user-name').textContent = `Name: ${userData.name}`;
-            document.getElementById('user-age').textContent = `Age: ${userData.age}`;
-            document.getElementById('user-salary').textContent = `Salary: ${userData.salary}`;
-            document.getElementById('current-balance').textContent = `Current Balance: ${userData.balance}`;
-
-            userDetails.style.display = 'block';
-            loginSection.style.display = 'none';
-            createAccountSection.style.display = 'none';
-        } else {
-            alert('Invalid name or PIN!');
-        }
-    });
-
-    document.getElementById('logout').addEventListener('click', function() {
+    document.getElementById('logout').addEventListener('click', function () {
         userDetails.style.display = 'none';
         loginSection.style.display = 'block';
         createAccountSection.style.display = 'none';
         loginForm.reset();
     });
 
-    document.getElementById('view-transactions').addEventListener('click', function() {
+    document.getElementById('view-transactions').addEventListener('click', function () {
         const pin = prompt("Enter your PIN:");
 
         const userData = JSON.parse(localStorage.getItem(pin));
@@ -113,59 +92,59 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    document.getElementById('deposit').addEventListener('click', function() {
+    document.getElementById('deposit').addEventListener('click', function () {
         depositModal.style.display = 'block';
     });
 
-    document.getElementById('withdraw').addEventListener('click', function() {
+    document.getElementById('withdraw').addEventListener('click', function () {
         withdrawModal.style.display = 'block';
     });
 
-    document.getElementById('bill-payment').addEventListener('click', function() {
+    document.getElementById('bill-payment').addEventListener('click', function () {
         billPaymentModal.style.display = 'block';
     });
 
-    document.getElementById('loan').addEventListener('click', function() {
+    document.getElementById('loan').addEventListener('click', function () {
         loanModal.style.display = 'block';
     });
 
-    document.getElementById('insurance').addEventListener('click', function() {
+    document.getElementById('insurance').addEventListener('click', function () {
         insuranceModal.style.display = 'block';
     });
 
-    document.getElementById('cheque').addEventListener('click', function() {
+    document.getElementById('cheque').addEventListener('click', function () {
         chequeModal.style.display = 'block';
     });
 
-    closeTransactionLog.addEventListener('click', function() {
+    closeTransactionLog.addEventListener('click', function () {
         transactionLogModal.style.display = 'none';
     });
 
-    closeDeposit.addEventListener('click', function() {
+    closeDeposit.addEventListener('click', function () {
         depositModal.style.display = 'none';
     });
 
-    closeWithdraw.addEventListener('click', function() {
+    closeWithdraw.addEventListener('click', function () {
         withdrawModal.style.display = 'none';
     });
 
-    closeBillPayment.addEventListener('click', function() {
+    closeBillPayment.addEventListener('click', function () {
         billPaymentModal.style.display = 'none';
     });
 
-    closeLoan.addEventListener('click', function() {
+    closeLoan.addEventListener('click', function () {
         loanModal.style.display = 'none';
     });
 
-    closeInsurance.addEventListener('click', function() {
+    closeInsurance.addEventListener('click', function () {
         insuranceModal.style.display = 'none';
     });
 
-    closeCheque.addEventListener('click', function() {
+    closeCheque.addEventListener('click', function () {
         chequeModal.style.display = 'none';
     });
 
-    window.addEventListener('click', function(event) {
+    window.addEventListener('click', function (event) {
         if (event.target === transactionLogModal) {
             transactionLogModal.style.display = 'none';
         }
@@ -189,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    document.getElementById('deposit-form').addEventListener('submit', function(event) {
+    document.getElementById('deposit-form').addEventListener('submit', function (event) {
         event.preventDefault();
         const pin = prompt("Enter your PIN:");
         const amount = document.getElementById('deposit-amount').value;
@@ -212,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    document.getElementById('withdraw-form').addEventListener('submit', function(event) {
+    document.getElementById('withdraw-form').addEventListener('submit', function (event) {
         event.preventDefault();
         const pin = prompt("Enter your PIN:");
         const amount = document.getElementById('withdraw-amount').value;
@@ -247,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    document.getElementById('bill-payment-form').addEventListener('submit', function(event) {
+    document.getElementById('bill-payment-form').addEventListener('submit', function (event) {
         event.preventDefault();
         const pin = prompt("Enter your PIN:");
         const billType = document.getElementById('bill-type').value;
@@ -284,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Handle form submissions for loan, insurance, and cheque
-    document.getElementById('loan-form').addEventListener('submit', function(event) {
+    document.getElementById('loan-form').addEventListener('submit', function (event) {
         event.preventDefault();
         const pin = prompt("Enter your PIN:");
         const amount = document.getElementById('loan-amount').value;
@@ -307,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    document.getElementById('insurance-form').addEventListener('submit', function(event) {
+    document.getElementById('insurance-form').addEventListener('submit', function (event) {
         event.preventDefault();
         const pin = prompt("Enter your PIN:");
         const amount = document.getElementById('insurance-amount').value;
@@ -342,7 +321,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    document.getElementById('cheque-form').addEventListener('submit', function(event) {
+    document.getElementById('cheque-form').addEventListener('submit', function (event) {
         event.preventDefault();
         const pin = prompt("Enter your PIN:");
         const amount = document.getElementById('cheque-amount').value;
@@ -377,43 +356,37 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    document.getElementById('create-account-button').addEventListener('click', function() {
+    document.getElementById('create-account-button').addEventListener('click', function () {
         document.getElementById('create-account').style.display = 'block';
         document.getElementById('login').style.display = 'none';
         document.getElementById('user-details').style.display = 'none';
     });
 
-    document.getElementById('login-button').addEventListener('click', function() {
+    document.getElementById('login-button').addEventListener('click', function () {
         document.getElementById('create-account').style.display = 'none';
         document.getElementById('login').style.display = 'block';
         document.getElementById('user-details').style.display = 'none';
     });
 
-    document.getElementById('view-transactions').addEventListener('click', function() {
+    document.getElementById('view-transactions').addEventListener('click', function () {
         // Add logic to view transactions
         alert('Viewing transactions');
     });
 
-    document.getElementById('logout').addEventListener('click', function() {
+    document.getElementById('logout').addEventListener('click', function () {
         // Add logic to logout
         alert('Logged out');
     });
 
     // Add event listeners for form submissions if needed
-    document.getElementById('create-account-form').addEventListener('submit', function(event) {
+    document.getElementById('create-account-form').addEventListener('submit', function (event) {
         event.preventDefault();
         // Add logic to create account
         alert('Account created');
     });
-
-    document.getElementById('login-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-        // Add logic to login
-        alert('Logged in');
-    });
 });
 document.querySelectorAll('.service-button').forEach(button => {
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function () {
         const service = this.getAttribute('data-service');
         if (localStorage.getItem('loggedIn') === 'true') {
             window.location.href = `${service}.html`;
@@ -425,7 +398,7 @@ document.querySelectorAll('.service-button').forEach(button => {
     });
 });
 
-document.getElementById('create-account-form').addEventListener('submit', function(event) {
+document.getElementById('create-account-form').addEventListener('submit', function (event) {
     event.preventDefault();
     localStorage.setItem('loggedIn', 'true');
     alert('Account created successfully!');
@@ -433,15 +406,35 @@ document.getElementById('create-account-form').addEventListener('submit', functi
     document.getElementById('user-details').style.display = 'block';
 });
 
-document.getElementById('login-form').addEventListener('submit', function(event) {
+document.getElementById('login-form').addEventListener('submit', function (event) {
     event.preventDefault();
-    localStorage.setItem('loggedIn', 'true');
-    alert('Logged in successfully!');
-    document.getElementById('login').style.display = 'none';
-    document.getElementById('user-details').style.display = 'block';
+    const loginName = document.getElementById('login-name').value;
+    const loginPin = document.getElementById('login-pin').value;
+
+    fetch("http://127.0.0.1:5000/login", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: loginName, pin: loginPin })
+    }).then(res => res.json()).then(res => {
+        const userData = res
+        localStorage.setItem('loggedIn', 'true');
+
+        alert('Logged in successfully!');
+
+        document.getElementById('user-name').textContent = `Name: ${userData.name}`;
+        document.getElementById('user-age').textContent = `Age: ${userData.age}`;
+        document.getElementById('user-salary').textContent = `Salary: ${userData.salary}`;
+        document.getElementById('current-balance').textContent = `Current Balance: ${userData.balance}`;
+
+
+        document.getElementById('login').style.display = 'none';
+        document.getElementById('user-details').style.display = 'block';
+    })
 });
 
-document.getElementById('logout').addEventListener('click', function() {
+document.getElementById('logout').addEventListener('click', function () {
     localStorage.removeItem('loggedIn');
     alert('Logged out successfully!');
     document.getElementById('user-details').style.display = 'none';
