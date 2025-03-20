@@ -168,7 +168,8 @@ class BankSystem:
             return {"error": "Invalid PIN!"}
 
     def view_transaction_log(self, pin):
-        cursor = self.conn.cursor()
+        conn = self.connect_to_database()
+        cursor = conn.cursor()
         cursor.execute('SELECT transactions FROM users WHERE pin = ?', (pin,))
         user = cursor.fetchone()
 
