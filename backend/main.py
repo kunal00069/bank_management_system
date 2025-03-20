@@ -80,7 +80,8 @@ class BankSystem:
         if not pin or not amount or not amount.isdigit() or int(amount) <= 0:
             return {"error": "Invalid input!"}
 
-        cursor = self.conn.cursor()
+        conn = self.connect_to_database()
+        cursor = conn.cursor()
         cursor.execute(
             'SELECT balance, transactions FROM users WHERE pin = ?', (pin,))
         user = cursor.fetchone()
@@ -93,7 +94,7 @@ class BankSystem:
 
             cursor.execute('UPDATE users SET balance = ?, transactions = ? WHERE pin = ?',
                            (new_balance, str(transactions), pin))
-            self.conn.commit()
+            conn.commit()
             return {"success": "Deposit successful!", "new_balance": new_balance}
         else:
             return {"error": "Invalid PIN!"}
