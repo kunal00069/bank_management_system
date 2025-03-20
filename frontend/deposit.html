@@ -1,48 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Deposit</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <div id="deposit-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="close-deposit">&times;</span>
-            <h2>Deposit</h2>
-            <form id="deposit-form">
-                <label for="deposit-amount">Amount:</label>
-                <input type="number" id="deposit-amount" required>
-                <button type="submit">Deposit</button>
-            </form>
-        </div>
+      <div class="modal-content">
+        <span class="close" id="close-deposit">&times;</span>
+        <h2>Deposit</h2>
+        <form id="deposit-form">
+          <label for="deposit-amount">Amount:</label>
+          <input type="number" id="deposit-amount" required />
+          <button type="submit">Deposit</button>
+        </form>
+      </div>
     </div>
     <script src="scripts/common.js"></script>
     <script src="scripts/deposit.js"></script>
     <script>
-        // Get the modal
-        var modal = document.getElementById("deposit-modal");
+      // Get the modal
+      var modal = document.getElementById("deposit-modal");
 
-        // Get the <span> element that closes the modal
-        var span = document.getElementById("close-deposit");
+      // Get the <span> element that closes the modal
+      var span = document.getElementById("close-deposit");
 
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-            modal.style.display = "none";
+      function goBack() {
+        const href = window.location.href;
+        const href_split = href.split("/");
+        href_split.pop();
+        window.location.href = href_split.join("/");
+      }
+
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function () {
+        modal.style.display = "none";
+        goBack();
+      };
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
         }
+        goBack();
+      };
 
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
-        // Display the modal when the page loads
-        window.onload = function() {
-            modal.style.display = "block";
-        }
+      // Display the modal when the page loads
+      window.onload = function () {
+        modal.style.display = "block";
+      };
     </script>
-</body>
+  </body>
 </html>
