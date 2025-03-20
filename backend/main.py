@@ -69,8 +69,8 @@ class BankSystem:
                 "name": user[1],
                 "age": user[2],
                 "salary": user[3],
-                "balance": user[4],
-                # "transactions": eval(user[5])
+                "balance": user[5],
+                "transactions": eval(user[6])
             }
         else:
             print("No I am here")

@@ -392,7 +392,7 @@ document.querySelectorAll('.service-button').forEach(button => {
             window.location.href = `${service}.html`;
         } else {
             document.getElementById('create-account').style.display = 'block';
-            document.getElementById('login').style.display = 'none';
+            document.getElementById('login').style.display = 'block';
             document.getElementById('user-details').style.display = 'none';
         }
     });
