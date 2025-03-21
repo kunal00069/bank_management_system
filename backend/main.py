@@ -53,9 +53,16 @@ class BankSystem:
             INSERT INTO users (name, age, salary, pin, balance, transactions)
             VALUES (?, ?, ?, ?, ?, ?)
         ''', (name, age, salary, pin, 0, '[]'))
-        a = conn.commit()
-        print("a", a)
-        return {"success": "Account created successfully!"}
+        conn.commit()
+        conn.close()
+        return {
+            "pin":pin,
+            "name":name,
+            "age":age,
+            "salary":salary,
+            "balance":0,
+            "transactions":"[]"
+        }
 
     def login(self, name, pin):
         conn = self.connect_to_database()
@@ -187,7 +194,7 @@ def create_account():
     age = data.get('age')
     salary = data.get('salary')
     pin = data.get('pin')
-    result = bank_system.create_account(name, age, salary, pin)
+    result = bank_system.create_account(name, age, salary, pin)    
     return jsonify(result)
 
 
@@ -245,6 +252,7 @@ def view_transaction_log():
     result = bank_system.view_transaction_log(pin)
     return jsonify(result)
 
+
 @app.route('/insurance', methods=['POST'])
 def insurance():
     data = request.json
@@ -253,6 +261,7 @@ def insurance():
     result = bank_system.bill_payment(pin, "Insurance", amount)
     return jsonify(result)
 
+
 @app.route('/loan', methods=['POST'])
 def loan():
     data = request.json
@@ -260,6 +269,7 @@ def loan():
     amount = data.get('amount')
     result = bank_system.bill_payment(pin, "Loan", amount)
     return jsonify(result)
+
 
 @app.route('/cheque', methods=['POST'])
 def cheque():

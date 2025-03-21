@@ -55,41 +55,11 @@ document.addEventListener('DOMContentLoaded', function () {
         userDetails.style.display = 'none';
     });
 
-    createAccountForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        const name = document.getElementById('name').value;
-        const age = document.getElementById('age').value;
-        const salary = document.getElementById('salary').value;
-        const pin = document.getElementById('pin').value;
-
-        localStorage.setItem(pin, JSON.stringify({ name, age, salary, balance: 0, transactions: [] }));
-
-        alert('Account created successfully!');
-        createAccountForm.reset();
-    });
-
     document.getElementById('logout').addEventListener('click', function () {
         userDetails.style.display = 'none';
         loginSection.style.display = 'block';
         createAccountSection.style.display = 'none';
         loginForm.reset();
-    });
-
-    document.getElementById('view-transactions').addEventListener('click', function () {
-        const pin = prompt("Enter your PIN:");
-
-        const userData = JSON.parse(localStorage.getItem(pin));
-        if (userData) {
-            transactionLogContainer.innerHTML = '';
-            userData.transactions.forEach(transaction => {
-                const logEntry = document.createElement('div');
-                logEntry.textContent = transaction;
-                transactionLogContainer.appendChild(logEntry);
-            });
-            transactionLogModal.style.display = 'block';
-        } else {
-            alert("Invalid PIN!");
-        }
     });
 
     document.getElementById('deposit').addEventListener('click', function () {
@@ -368,21 +338,9 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('user-details').style.display = 'none';
     });
 
-    document.getElementById('view-transactions').addEventListener('click', function () {
-        // Add logic to view transactions
-        alert('Viewing transactions');
-    });
-
     document.getElementById('logout').addEventListener('click', function () {
         // Add logic to logout
         alert('Logged out');
-    });
-
-    // Add event listeners for form submissions if needed
-    document.getElementById('create-account-form').addEventListener('submit', function (event) {
-        event.preventDefault();
-        // Add logic to create account
-        alert('Account created');
     });
 });
 document.querySelectorAll('.service-button').forEach(button => {
@@ -400,10 +358,21 @@ document.querySelectorAll('.service-button').forEach(button => {
 
 document.getElementById('create-account-form').addEventListener('submit', function (event) {
     event.preventDefault();
-    localStorage.setItem('loggedIn', 'true');
-    alert('Account created successfully!');
-    document.getElementById('create-account').style.display = 'none';
-    document.getElementById('user-details').style.display = 'block';
+    const name = document.getElementById('name').value;
+    const age = document.getElementById('age').value;
+    const salary = document.getElementById('salary').value;
+    const pin = document.getElementById('pin').value;
+
+    // localStorage.setItem(pin, JSON.stringify({ name, age, salary, balance: 0, transactions: [] }));
+    fetch("http://127.0.0.1:5000/create_account", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, age, salary, pin })
+    }).then(res => res.json()).then(() => {
+        alert("Account Created successfully. Please login")
+    })
 });
 
 document.getElementById('login-form').addEventListener('submit', function (event) {
@@ -418,19 +387,23 @@ document.getElementById('login-form').addEventListener('submit', function (event
         },
         body: JSON.stringify({ name: loginName, pin: loginPin })
     }).then(res => res.json()).then(res => {
-        const userData = res
-        localStorage.setItem('loggedIn', 'true');
+        if (res.error) {
+            alert(res.error);
+        }
+        else {
+            const userData = res
+            localStorage.setItem('loggedIn', 'true');
 
-        alert('Logged in successfully!');
+            alert('Logged in successfully!');
 
-        document.getElementById('user-name').textContent = `Name: ${userData.name}`;
-        document.getElementById('user-age').textContent = `Age: ${userData.age}`;
-        document.getElementById('user-salary').textContent = `Salary: ${userData.salary}`;
-        document.getElementById('current-balance').textContent = `Current Balance: ${userData.balance}`;
+            document.getElementById('user-name').textContent = `Name: ${userData.name}`;
+            document.getElementById('user-age').textContent = `Age: ${userData.age}`;
+            document.getElementById('user-salary').textContent = `Salary: ${userData.salary}`;
+            document.getElementById('current-balance').textContent = `Current Balance: ${userData.balance}`;
 
-
-        document.getElementById('login').style.display = 'none';
-        document.getElementById('user-details').style.display = 'block';
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('user-details').style.display = 'block';
+        }
     })
 });
 
