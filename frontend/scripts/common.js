@@ -76,3 +76,11 @@ function addTransaction(action, amount, pin) {
             break;
     }
 }
+
+function goBack() {
+    const href = window.location.href;
+    const href_split = href.split("/");
+    href_split.pop();
+    window.location.href = href_split.join("/");
+    console.log("href",href, href_split)
+}
