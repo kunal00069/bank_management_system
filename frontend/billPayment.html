@@ -24,6 +24,7 @@
             </form>
         </div>
     </div>
+    <script src="scripts/common.js"></script>
     <script src="scripts/billPayment.js"></script>
     <script>
         // Get the modal
@@ -32,9 +33,17 @@
         // Get the <span> element that closes the modal
         var span = document.getElementById("close-bill-payment");
 
+        function goBack() {
+            const href = window.location.href;
+            const href_split = href.split("/");
+            href_split.pop();
+            window.location.herf = href_split.join("/");
+        }   
+
         // When the user clicks on <span> (x), close the modal
         span.onclick = function() {
             modal.style.display = "none";
+            goBack();   
         }
 
         // When the user clicks anywhere outside of the modal, close it
@@ -42,6 +51,7 @@
             if (event.target == modal) {
                 modal.style.display = "none";
             }
+            goBack();   
         }
 
         // Display the modal when the page loads

@@ -245,6 +245,30 @@ def view_transaction_log():
     result = bank_system.view_transaction_log(pin)
     return jsonify(result)
 
+@app.route('/insurance', methods=['POST'])
+def insurance():
+    data = request.json
+    pin = data.get('pin')
+    amount = data.get('amount')
+    result = bank_system.bill_payment(pin, "Insurance", amount)
+    return jsonify(result)
+
+@app.route('/loan', methods=['POST'])
+def loan():
+    data = request.json
+    pin = data.get('pin')
+    amount = data.get('amount')
+    result = bank_system.bill_payment(pin, "Loan", amount)
+    return jsonify(result)
+
+@app.route('/cheque', methods=['POST'])
+def cheque():
+    data = request.json
+    pin = data.get('pin')
+    amount = data.get('amount')
+    result = bank_system.bill_payment(pin, "Cheque", amount)
+    return jsonify(result)
+
 
 if __name__ == '__main__':
     db_path = 'backend/database/bank.db'
