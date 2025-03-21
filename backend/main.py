@@ -109,8 +109,8 @@ class BankSystem:
     def withdraw(self, pin, amount):
         if not pin or not amount or not amount.isdigit() or int(amount) <= 0:
             return {"error": "Invalid input!"}
-
-        cursor = self.conn.cursor()
+        conn=self.connect_to_database()
+        cursor = conn.cursor()
         cursor.execute(
             'SELECT balance, salary, transactions FROM users WHERE pin = ?', (pin,))
         user = cursor.fetchone()
@@ -135,7 +135,7 @@ class BankSystem:
 
             cursor.execute('UPDATE users SET balance = ?, salary = ?, transactions = ? WHERE pin = ?',
                            (current_balance, salary, str(transactions), pin))
-            self.conn.commit()
+            conn.commit()
             return {"success": "Withdrawal successful!", "new_balance": current_balance, "remaining_salary": salary}
         else:
             return {"error": "Invalid PIN!"}
@@ -143,8 +143,8 @@ class BankSystem:
     def bill_payment(self, pin, bill_type, amount):
         if not pin or not amount or not amount.isdigit() or int(amount) <= 0:
             return {"error": "Invalid input!"}
-
-        cursor = self.conn.cursor()
+        conn=self.connect_to_database
+        cursor = conn.cursor()
         cursor.execute(
             'SELECT balance, salary, transactions FROM users WHERE pin = ?', (pin,))
         user = cursor.fetchone()
@@ -169,11 +169,12 @@ class BankSystem:
 
             cursor.execute('UPDATE users SET balance = ?, salary = ?, transactions = ? WHERE pin = ?',
                            (current_balance, salary, str(transactions), pin))
-            self.conn.commit()
+            conn.commit()
             return {"success": "Bill payment successful!", "new_balance": current_balance, "remaining_salary": salary}
         else:
             return {"error": "Invalid PIN!"}
-
+        
+   
     def view_transaction_log(self, pin):
         conn = self.connect_to_database()
         cursor = conn.cursor()
