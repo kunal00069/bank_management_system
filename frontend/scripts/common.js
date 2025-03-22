@@ -1,4 +1,3 @@
-
 function addTransaction(action, amount, pin) {
     switch (action) {
         case "Deposit":
@@ -22,7 +21,7 @@ function addTransaction(action, amount, pin) {
             break;
 
         case "billPayment":
-            fetch("http://127.0.0.1.5000/billPayment", {
+            fetch("http://127.0.0.1:5000/bill_payment", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -32,7 +31,7 @@ function addTransaction(action, amount, pin) {
             break;
 
         case "cheque":
-            fetch("http://127.0.0.1.5000/cheque", {
+            fetch("http://127.0.0.1:5000/cheque", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -42,7 +41,7 @@ function addTransaction(action, amount, pin) {
             break;
 
         case "insurance":
-            fetch("http://127.0.0.1.5000/insurance", {
+            fetch("http://127.0.0.1:5000/insurance", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -52,7 +51,7 @@ function addTransaction(action, amount, pin) {
             break;
 
         case "loan":
-            fetch("http://127.0.0.1.5000/loan", {
+            fetch("http://127.0.0.1:5000/loan", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -60,15 +59,17 @@ function addTransaction(action, amount, pin) {
                 body: JSON.stringify({ pin, amount })
             }).then(res => res.json())
             break;
- 
+
         case "transactions":
-            fetch("http://127.0.0.1.5000/transactions", {
+            fetch("http://127.0.0.1:5000/view_transaction_log", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ pin, amount })
+                body: JSON.stringify({ pin })
             }).then(res => res.json())
+            break;
+
         default:
             break;
     }
