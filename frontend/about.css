@@ -1,0 +1,107 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #dff1ee;
+}
+
+header {
+    background-color: whitesmoke;
+    padding: 40px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    background: #00836c; 
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0 10px;
+    transition: background 0.3s ease, transform 0.3s ease;
+    text-decoration: none; /* Remove underline */
+}
+
+nav ul li a:hover {
+    background: #f37021; /* Darker Saffron */
+    transform: scale(1.05); /* Slightly increase the size */
+}
+
+main {
+    padding: 20px;  
+}
+
+.about-us {
+    text-align: center;
+}
+
+.about-us h1 {
+    color: teal;
+    margin-bottom: 20px;
+}
+
+.card-container {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 90px;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: left;
+}
+
+.card h2 {
+    color: teal;
+    margin-top: 0;
+}
+
+.card p {
+    color: #333;
+}
+
+.card button {
+    background-color: teal;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease; /* Add transition */
+    text-decoration: none; /* Remove underline */
+}
+
+.card button:hover {
+    background-color: #f37021;
+    transform: scale(1.05); /* Slightly increase the size */
+}
+
+footer {
+    background-color: #f37021;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}

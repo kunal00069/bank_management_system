@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Board of Directors</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: whitesmoke;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-left .logo {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        .header-middle {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-middle button {
+            background: #00836c; 
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 0 10px;
+            transition: background 0.3s ease, transform 0.3s ease;
+            text-decoration: none; /* Remove underline */
+        }
+
+        .header-middle button:hover {
+            background: #f37021; /* Darker Saffron */
+            transform: scale(1.05); /* Slightly increase the size */
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right .social-icon {
+            color: #00836c;
+            font-size: 20px;
+            margin: 0 10px;
+            transition: color 0.3s ease, transform 0.3s ease;
+            text-decoration: none; /* Remove underline */
+        }
+
+        .header-right .social-icon:hover {
+            color: #f37021; /* Darker Saffron */
+            transform: scale(1.2); /* Slightly increase the size */
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .bod-section {
+            text-align: center;
+        }
+
+        .bod-section h1 {
+            color: #f37021;
+            margin-bottom: 20px;
+        }
+
+        .bod-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .bod-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            width: 200px;
+        }
+
+        .bod-card img {
+            width: 100%;
+            height: 300px; /* Ensure all images have the same height */
+            object-fit: cover; /* Ensure the images cover the area without distortion */
+            border-radius: 8px;
+        }
+
+        .bod-card h2 {
+            color: #f37021;
+            margin-top: 10px;
+        }
+
+        .bod-card p {
+            color: #333;
+            margin-top: 5px;
+        }
+
+        footer {
+            background-color: #f37021;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <a href="index.html"><img src="pictures/214126870-removebg-preview.png" alt="Logo" class="logo"></a>
+            <h1>FinGuard</h1>
+        </div>
+       
+    </header>
+    <main>
+        <section class="bod-section">
+            <h1>Executive Director's Profiles</h1>
+            <div class="bod-container">
+                <div class="bod-card">
+                    <img src="pictures/KunalWarghane-removebg-preview.png" alt="Kunal Warghane">
+                    <h2>Kunal Warghane</h2>
+                    <p>Managing Director & CEO</p>
+                </div>
+                <div class="bod-card">
+                    <img src="pictures/Lalit_Nehare-removebg-preview.png" alt="Lalit Nehare">
+                    <h2>Lalit Nehare</h2>
+                    <p>Executive Director</p>
+                </div>
+                <div class="bod-card">
+                    <img src="pictures/AbhishekSharnagat-removebg-preview.png" alt="Abhishek Sharnagat">
+                    <h2>Abhishek Sharnagat</h2>
+                    <p>Executive Director</p>
+                </div>
+                <div class="bod-card">
+                    <img src="pictures/KeshavKawadkar-removebg-preview.png" alt="Keshav Kawadkar">
+                    <h2>Keshav Kawadkar</h2>
+                    <p>Executive Director</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>© Copyright FinGuard 2025 All Rights Reserved</p>
+            <p>Site best viewed at 1420 x 768 resolution in Edge, Mozilla 40 +, Google Chrome 45 +</p>
+        </div>
+    </footer>
+    <script src="scripts.js"></script>
+</body>
+</html>
