@@ -196,12 +196,10 @@ class BankSystem:
         user = cursor.fetchone()
 
         if user:
-            new_balance = user[0] - int(amount)
-            if new_balance < 0:
-                return {"error": "Insufficient balance!"}
+            new_balance = user[0] + int(amount)
             transactions = eval(user[1])
             transactions.append(
-                f"Insurance Payment ({insurance_type}): -{amount}, New Balance: {new_balance}")
+                f"Insurance Get ({insurance_type}): +{amount}, New Balance: {new_balance}")
 
             cursor.execute('UPDATE users SET balance = ?, transactions = ? WHERE pin = ?',
                            (new_balance, str(transactions), pin))
