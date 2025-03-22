@@ -210,28 +210,44 @@ class BankSystem:
         else:
             return {"error": "Invalid PIN!"}
 
-    def cheque(self, pin, amount):
+    def cheque(self, pin, cheque_type, amount):
         if not pin or not amount or not amount.isdigit() or int(amount) <= 0:
             return {"error": "Invalid input!"}
 
         conn = self.connect_to_database()
         cursor = conn.cursor()
         cursor.execute(
-            'SELECT balance, transactions FROM users WHERE pin = ?', (pin,))
+            'SELECT balance, salary, transactions FROM users WHERE pin = ?', (pin,))
         user = cursor.fetchone()
 
         if user:
-            new_balance = user[0] - int(amount)
-            if new_balance < 0:
-                return {"error": "Insufficient balance!"}
-            transactions = eval(user[1])
-            transactions.append(
-                f"Cheque Payment: -{amount}, New Balance: {new_balance}")
+            current_balance = user[0]
+            salary = user[1]
+            transactions = eval(user[2])
 
-            cursor.execute('UPDATE users SET balance = ?, transactions = ? WHERE pin = ?',
-                           (new_balance, str(transactions), pin))
+            if cheque_type == 'issue':
+                if int(amount) > current_balance:
+                    remaining_amount = int(amount) - current_balance
+                    if remaining_amount > salary:
+                        return {"error": "Insufficient balance and salary!"}
+                    salary -= remaining_amount
+                    transactions.append(
+                        f"Cheque Issue: -{amount}, New Balance: 0, Salary Deducted: -{remaining_amount}, Remaining Salary: {salary}")
+                    current_balance = 0
+                else:
+                    current_balance -= int(amount)
+                    transactions.append(
+                        f"Cheque Issue: -{amount}, New Balance: {current_balance}")
+
+            elif cheque_type == 'deposit':
+                current_balance += int(amount)
+                transactions.append(
+                    f"Cheque Deposit: +{amount}, New Balance: {current_balance}")
+
+            cursor.execute('UPDATE users SET balance = ?, salary = ?, transactions = ? WHERE pin = ?',
+                           (current_balance, salary, str(transactions), pin))
             conn.commit()
-            return {"success": "Cheque payment successful!", "new_balance": new_balance}
+            return {"success": f"Cheque {cheque_type} successful!", "new_balance": current_balance, "remaining_salary": salary}
         else:
             return {"error": "Invalid PIN!"}
 
@@ -348,8 +364,9 @@ def loan():
 def cheque():
     data = request.json
     pin = data.get('pin')
+    cheque_type = data.get('type')
     amount = data.get('amount')
-    result = bank_system.cheque(pin, amount)
+    result = bank_system.cheque(pin, cheque_type, amount)
     return jsonify(result)
 
 

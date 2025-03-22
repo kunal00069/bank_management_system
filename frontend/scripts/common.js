@@ -1,4 +1,4 @@
-function addTransaction(action, amount, pin, type=null) {
+function addTransaction(action, amount, pin, type = null) {
     let body = { pin, amount };
     if (type) {
         body.type = type;
@@ -12,7 +12,7 @@ function addTransaction(action, amount, pin, type=null) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(body)
-            }).then(res => res.json())
+            }).then(res => res.json()).then(() => fetchTransactionLog(pin));
             break;
 
         case "Withdraw":
@@ -22,7 +22,7 @@ function addTransaction(action, amount, pin, type=null) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(body)
-            }).then(res => res.json())
+            }).then(res => res.json()).then(() => fetchTransactionLog(pin));
             break;
 
         case "billPayment":
@@ -32,7 +32,7 @@ function addTransaction(action, amount, pin, type=null) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(body)
-            }).then(res => res.json())
+            }).then(res => res.json()).then(() => fetchTransactionLog(pin));
             break;
 
         case "cheque":
@@ -42,7 +42,7 @@ function addTransaction(action, amount, pin, type=null) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(body)
-            }).then(res => res.json())
+            }).then(res => res.json()).then(() => fetchTransactionLog(pin));
             break;
 
         case "insurance":
@@ -52,7 +52,7 @@ function addTransaction(action, amount, pin, type=null) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(body)
-            }).then(res => res.json())
+            }).then(res => res.json()).then(() => fetchTransactionLog(pin));
             break;
 
         case "loan":
@@ -62,7 +62,7 @@ function addTransaction(action, amount, pin, type=null) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(body)
-            }).then(res => res.json())
+            }).then(res => res.json()).then(() => fetchTransactionLog(pin));
             break;
 
         case "transactions":
@@ -72,7 +72,7 @@ function addTransaction(action, amount, pin, type=null) {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(body)
-            }).then(res => res.json())
+            }).then(res => res.json()).then(() => fetchTransactionLog(pin));
             break;
 
         default:
@@ -80,10 +80,32 @@ function addTransaction(action, amount, pin, type=null) {
     }
 }
 
+function fetchTransactionLog(pin) {
+    fetch("http://127.0.0.1:5000/view_transaction_log", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ pin })
+    })
+    .then(res => res.json())
+    .then(data => {
+        const transactionLog = document.getElementById('transaction-log');
+        transactionLog.innerHTML = '';
+        data.transactions.forEach(transaction => {
+            const transactionItem = document.createElement('li');
+            transactionItem.textContent = transaction;
+            transactionLog.appendChild(transactionItem);
+        });
+    });
+}
+
 function goBack() {
-    const href = window.location.href;
-    const href_split = href.split("/");
-    href_split.pop();
-    window.location.href = href_split.join("/");
-    console.log("href",href, href_split)
-}        
+    document.getElementById('user-details').style.display = 'block';
+    document.getElementById('our-services').style.display = 'none';
+    const modals = document.getElementsByClassName('modal');
+    for (let i = 0; i < modals.length; i++) {
+        modals[i].style.display = 'none';
+    }
+    console.log("Navigated back to user-details section");
+}
