@@ -1,4 +1,9 @@
-function addTransaction(action, amount, pin) {
+function addTransaction(action, amount, pin, type=null) {
+    let body = { pin, amount };
+    if (type) {
+        body.type = type;
+    }
+
     switch (action) {
         case "Deposit":
             fetch("http://127.0.0.1:5000/deposit", {
@@ -6,7 +11,7 @@ function addTransaction(action, amount, pin) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ pin, amount })
+                body: JSON.stringify(body)
             }).then(res => res.json())
             break;
 
@@ -16,7 +21,7 @@ function addTransaction(action, amount, pin) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ pin, amount })
+                body: JSON.stringify(body)
             }).then(res => res.json())
             break;
 
@@ -26,7 +31,7 @@ function addTransaction(action, amount, pin) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ pin, amount })
+                body: JSON.stringify(body)
             }).then(res => res.json())
             break;
 
@@ -36,7 +41,7 @@ function addTransaction(action, amount, pin) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ pin, amount })
+                body: JSON.stringify(body)
             }).then(res => res.json())
             break;
 
@@ -46,7 +51,7 @@ function addTransaction(action, amount, pin) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ pin, amount })
+                body: JSON.stringify(body)
             }).then(res => res.json())
             break;
 
@@ -56,7 +61,7 @@ function addTransaction(action, amount, pin) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ pin, amount })
+                body: JSON.stringify(body)
             }).then(res => res.json())
             break;
 
@@ -66,7 +71,7 @@ function addTransaction(action, amount, pin) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ pin })
+                body: JSON.stringify(body)
             }).then(res => res.json())
             break;
 

@@ -3,6 +3,6 @@ document.getElementById('bill-payment-form').addEventListener('submit', function
     const pin = prompt('Enter your pin');
     const billType = document.getElementById('bill-type').value;
     const amount = document.getElementById('bill-amount').value;
-    addTransaction(`Bill Payment (${billType})`, amount, pin);
+    addTransaction('billPayment', amount, pin, billType);
     alert(`Paid ${billType} bill: ${amount}`);
 });

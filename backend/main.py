@@ -240,7 +240,7 @@ class BankSystem:
         else:
             return {"error": "Invalid PIN!"}
 
-    def loan(self, pin, amount):
+    def loan(self, pin, loan_type, amount):
         if not pin or not amount or not amount.isdigit() or int(amount) <= 0:
             return {"error": "Invalid input!"}
 
@@ -254,7 +254,7 @@ class BankSystem:
             new_balance = user[0] + int(amount)
             transactions = eval(user[1])
             transactions.append(
-                f"Loan Received: +{amount}, New Balance: {new_balance}")
+                f"Loan Received ({loan_type}): +{amount}, New Balance: {new_balance}")
 
             cursor.execute('UPDATE users SET balance = ?, transactions = ? WHERE pin = ?',
                            (new_balance, str(transactions), pin))
