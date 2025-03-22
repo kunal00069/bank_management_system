@@ -101,11 +101,9 @@ function fetchTransactionLog(pin) {
 }
 
 function goBack() {
-    document.getElementById('user-details').style.display = 'block';
-    document.getElementById('our-services').style.display = 'none';
-    const modals = document.getElementsByClassName('modal');
-    for (let i = 0; i < modals.length; i++) {
-        modals[i].style.display = 'none';
-    }
-    console.log("Navigated back to user-details section");
+    const href = window.location.href;
+    const href_split= href.split('/');
+    href_split.pop();
+    window.location.href= href_split.join('/');
+    console.log("href", href,href_split);
 }
