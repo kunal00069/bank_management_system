@@ -1,6 +1,7 @@
+const createAccountButton = document.getElementById('create-account-button');
+const loginButton = document.getElementById('login-button');
+
 document.addEventListener('DOMContentLoaded', function () {
-    const createAccountButton = document.getElementById('create-account-button');
-    const loginButton = document.getElementById('login-button');
     const createAccountSection = document.getElementById('create-account');
     const loginSection = document.getElementById('login');
     const userDetails = document.getElementById('user-details');
@@ -326,13 +327,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    document.getElementById('create-account-button').addEventListener('click', function () {
+    createAccountButton.addEventListener('click', function () {
         document.getElementById('create-account').style.display = 'block';
         document.getElementById('login').style.display = 'none';
         document.getElementById('user-details').style.display = 'none';
     });
 
-    document.getElementById('login-button').addEventListener('click', function () {
+    loginButton.addEventListener('click', function () {
         document.getElementById('create-account').style.display = 'none';
         document.getElementById('login').style.display = 'block';
         document.getElementById('user-details').style.display = 'none';
@@ -343,6 +344,7 @@ document.addEventListener('DOMContentLoaded', function () {
         alert('Logged out');
     });
 });
+
 document.querySelectorAll('.service-button').forEach(button => {
     button.addEventListener('click', function () {
         const service = this.getAttribute('data-service');
@@ -393,6 +395,7 @@ document.getElementById('login-form').addEventListener('submit', function (event
         else {
             const userData = res
             localStorage.setItem('loggedIn', 'true');
+            localStorage.setItem("user", JSON.stringify(userData));
 
             alert('Logged in successfully!');
 
@@ -412,3 +415,17 @@ document.getElementById('logout').addEventListener('click', function () {
     alert('Logged out successfully!');
     document.getElementById('user-details').style.display = 'none';
 });
+
+const isLoggedIn = localStorage.getItem("loggedIn")
+if (isLoggedIn == true || isLoggedIn == "true") {
+    createAccountButton.style.display = "none";
+    loginButton.style.display = "none";
+
+    const userData = JSON.parse(localStorage.getItem("user"))
+    document.getElementById('user-name').textContent = `Name: ${userData.name}`;
+    document.getElementById('user-age').textContent = `Age: ${userData.age}`;
+    document.getElementById('user-salary').textContent = `Salary: ${userData.salary}`;
+    document.getElementById('current-balance').textContent = `Current Balance: ${userData.balance}`;
+
+    document.getElementById('user-details').style.display = 'block';
+}
