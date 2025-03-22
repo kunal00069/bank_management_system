@@ -174,6 +174,9 @@ class BankSystem:
         else:
             return {"error": "Invalid PIN!"}
         
+
+    
+        
    
     def view_transaction_log(self, pin):
         conn = self.connect_to_database()
@@ -184,6 +187,79 @@ class BankSystem:
         if user:
             transactions = eval(user[0])
             return {"transactions": transactions}
+        else:
+            return {"error": "Invalid PIN!"}
+
+    def insurance(self, pin, amount):
+        if not pin or not amount or not amount.isdigit() or int(amount) <= 0:
+            return {"error": "Invalid input!"}
+
+        conn = self.connect_to_database()
+        cursor = conn.cursor()
+        cursor.execute(
+            'SELECT balance, transactions FROM users WHERE pin = ?', (pin,))
+        user = cursor.fetchone()
+
+        if user:
+            new_balance = user[0] - int(amount)
+            if new_balance < 0:
+                return {"error": "Insufficient balance!"}
+            transactions = eval(user[1])
+            transactions.append(
+                f"Insurance Payment: -{amount}, New Balance: {new_balance}")
+
+            cursor.execute('UPDATE users SET balance = ?, transactions = ? WHERE pin = ?',
+                           (new_balance, str(transactions), pin))
+            conn.commit()
+            return {"success": "Insurance payment successful!", "new_balance": new_balance}
+        else:
+            return {"error": "Invalid PIN!"}
+
+    def cheque(self, pin, amount):
+        if not pin or not amount or not amount.isdigit() or int(amount) <= 0:
+            return {"error": "Invalid input!"}
+
+        conn = self.connect_to_database()
+        cursor = conn.cursor()
+        cursor.execute(
+            'SELECT balance, transactions FROM users WHERE pin = ?', (pin,))
+        user = cursor.fetchone()
+
+        if user:
+            new_balance = user[0] - int(amount)
+            if new_balance < 0:
+                return {"error": "Insufficient balance!"}
+            transactions = eval(user[1])
+            transactions.append(
+                f"Cheque Payment: -{amount}, New Balance: {new_balance}")
+
+            cursor.execute('UPDATE users SET balance = ?, transactions = ? WHERE pin = ?',
+                           (new_balance, str(transactions), pin))
+            conn.commit()
+            return {"success": "Cheque payment successful!", "new_balance": new_balance}
+        else:
+            return {"error": "Invalid PIN!"}
+
+    def loan(self, pin, amount):
+        if not pin or not amount or not amount.isdigit() or int(amount) <= 0:
+            return {"error": "Invalid input!"}
+
+        conn = self.connect_to_database()
+        cursor = conn.cursor()
+        cursor.execute(
+            'SELECT balance, transactions FROM users WHERE pin = ?', (pin,))
+        user = cursor.fetchone()
+
+        if user:
+            new_balance = user[0] + int(amount)
+            transactions = eval(user[1])
+            transactions.append(
+                f"Loan Received: +{amount}, New Balance: {new_balance}")
+
+            cursor.execute('UPDATE users SET balance = ?, transactions = ? WHERE pin = ?',
+                           (new_balance, str(transactions), pin))
+            conn.commit()
+            return {"success": "Loan received successfully!", "new_balance": new_balance}
         else:
             return {"error": "Invalid PIN!"}
 
@@ -259,7 +335,7 @@ def insurance():
     data = request.json
     pin = data.get('pin')
     amount = data.get('amount')
-    result = bank_system.bill_payment(pin, "Insurance", amount)
+    result = bank_system.insurance(pin, amount)
     return jsonify(result)
 
 
