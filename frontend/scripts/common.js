@@ -86,4 +86,4 @@ function goBack() {
     href_split.pop();
     window.location.href = href_split.join("/");
     console.log("href",href, href_split)
-}
+}        
