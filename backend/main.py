@@ -143,7 +143,7 @@ class BankSystem:
     def bill_payment(self, pin, bill_type, amount):
         if not pin or not amount or not amount.isdigit() or int(amount) <= 0:
             return {"error": "Invalid input!"}
-        conn=self.connect_to_database
+        conn = self.connect_to_database()
         cursor = conn.cursor()
         cursor.execute(
             'SELECT balance, salary, transactions FROM users WHERE pin = ?', (pin,))
