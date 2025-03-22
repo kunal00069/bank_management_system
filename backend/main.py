@@ -185,7 +185,7 @@ class BankSystem:
         else:
             return {"error": "Invalid PIN!"}
 
-    def insurance(self, pin, amount):
+    def insurance(self, pin, insurance_type, amount):
         if not pin or not amount or not amount.isdigit() or int(amount) <= 0:
             return {"error": "Invalid input!"}
 
@@ -201,12 +201,12 @@ class BankSystem:
                 return {"error": "Insufficient balance!"}
             transactions = eval(user[1])
             transactions.append(
-                f"Insurance Payment: -{amount}, New Balance: {new_balance}")
+                f"Insurance Payment ({insurance_type}): -{amount}, New Balance: {new_balance}")
 
             cursor.execute('UPDATE users SET balance = ?, transactions = ? WHERE pin = ?',
                            (new_balance, str(transactions), pin))
             conn.commit()
-            return {"success": "Insurance payment successful!", "new_balance": new_balance}
+            return {"success": f"{insurance_type.capitalize()} insurance payment successful!", "new_balance": new_balance}
         else:
             return {"error": "Invalid PIN!"}
 
@@ -345,8 +345,9 @@ def view_transaction_log():
 def insurance():
     data = request.json
     pin = data.get('pin')
+    insurance_type = data.get('type')
     amount = data.get('amount')
-    result = bank_system.insurance(pin, amount)
+    result = bank_system.insurance(pin, insurance_type, amount)
     return jsonify(result)
 
 
