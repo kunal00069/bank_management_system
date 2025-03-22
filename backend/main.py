@@ -56,12 +56,12 @@ class BankSystem:
         conn.commit()
         conn.close()
         return {
-            "pin":pin,
-            "name":name,
-            "age":age,
-            "salary":salary,
-            "balance":0,
-            "transactions":"[]"
+            "pin": pin,
+            "name": name,
+            "age": age,
+            "salary": salary,
+            "balance": 0,
+            "transactions": "[]"
         }
 
     def login(self, name, pin):
@@ -80,7 +80,6 @@ class BankSystem:
                 "transactions": eval(user[6])
             }
         else:
-            print("No I am here")
             return {"error": "Invalid name or PIN!"}
 
     def deposit(self, pin, amount):
@@ -109,7 +108,7 @@ class BankSystem:
     def withdraw(self, pin, amount):
         if not pin or not amount or not amount.isdigit() or int(amount) <= 0:
             return {"error": "Invalid input!"}
-        conn=self.connect_to_database()
+        conn = self.connect_to_database()
         cursor = conn.cursor()
         cursor.execute(
             'SELECT balance, salary, transactions FROM users WHERE pin = ?', (pin,))
@@ -173,11 +172,7 @@ class BankSystem:
             return {"success": "Bill payment successful!", "new_balance": current_balance, "remaining_salary": salary}
         else:
             return {"error": "Invalid PIN!"}
-        
 
-    
-        
-   
     def view_transaction_log(self, pin):
         conn = self.connect_to_database()
         cursor = conn.cursor()
@@ -271,7 +266,7 @@ def create_account():
     age = data.get('age')
     salary = data.get('salary')
     pin = data.get('pin')
-    result = bank_system.create_account(name, age, salary, pin)    
+    result = bank_system.create_account(name, age, salary, pin)
     return jsonify(result)
 
 
@@ -343,8 +338,9 @@ def insurance():
 def loan():
     data = request.json
     pin = data.get('pin')
+    loan_type = data.get('loan_type')
     amount = data.get('amount')
-    result = bank_system.bill_payment(pin, "Loan", amount)
+    result = bank_system.loan(pin, loan_type, amount)
     return jsonify(result)
 
 
@@ -353,7 +349,7 @@ def cheque():
     data = request.json
     pin = data.get('pin')
     amount = data.get('amount')
-    result = bank_system.bill_payment(pin, "Cheque", amount)
+    result = bank_system.cheque(pin, amount)
     return jsonify(result)
 
 

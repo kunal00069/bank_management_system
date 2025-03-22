@@ -4,5 +4,5 @@ document.getElementById('loan-form').addEventListener('submit', function(event) 
     const loanType = document.getElementById('loan-type').value;
     const amount = document.getElementById('loan-amount').value;
     addTransaction('loan', amount, pin, loanType);
-    alert(`Received ${loanType} loan: ${amount}`);
+    alert(`Applied for ${loanType} loan: ${amount}`);
 });
