@@ -327,7 +327,7 @@ def withdraw():
 def bill_payment():
     data = request.json
     pin = data.get('pin')
-    bill_type = data.get('bill_type')
+    bill_type = data.get('type')
     amount = data.get('amount')
     result = bank_system.bill_payment(pin, bill_type, amount)
     return jsonify(result)
@@ -355,7 +355,7 @@ def insurance():
 def loan():
     data = request.json
     pin = data.get('pin')
-    loan_type = data.get('loan_type')
+    loan_type = data.get('type')
     amount = data.get('amount')
     result = bank_system.loan(pin, loan_type, amount)
     return jsonify(result)
