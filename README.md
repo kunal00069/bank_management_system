@@ -42,7 +42,7 @@ bank-management-system
 ## Features
 - User account creation
 - User login
-- Deposit and withdrawal functionality
+- Deposit, withdrawal, Bill Payment, Insurance, Loan and Cheque functionality
 - Transaction logging
 - Simple and intuitive user interface
 
