@@ -54,11 +54,11 @@ main {
 
 .card-container {
     margin-top: 20px;
-    display: grid;
+    display:flexbox ;
     grid-template-columns: repeat(2, 1fr);
-    gap: 90px;
+    gap: 20px;
     justify-content: center;
-    padding: 20px;
+    padding: 10px;
     border-radius: 5px;
     position: relative;
 }
